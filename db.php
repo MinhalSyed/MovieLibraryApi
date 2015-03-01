@@ -88,10 +88,10 @@
 		}
 		//INSERT
 		
-		$sql = sprintf("SELECT M.movieid, M.title, M.img  FROM WatchList W
+		$sql = "SELECT M.movieid, M.title, M.img  FROM WatchList W
 						INNER JOIN Movies M on M.movieid = W.movieid
-						where username = '%u'
-						ORDER BY ORDERING", $user);
+						where W.username = '$user'
+						ORDER BY ORDERING";
 
 		//SELECT * FROM WatchList where username =  ORDER BY ORDERING
 		$result = $conn->query($sql);
@@ -106,8 +106,6 @@
 				$movie['img'] = $row['img'];
 				
 				$movies[] = $movie;
-				//sprintf("{id: , '%u' \"title\": '%s', \"img\": '%s' }", $row["movieid"], $row["title"], $row["img"]);
-				//echo "{id: " . $row["movieid"]. " - title: " . $row["title"]. " img:" . $row["img"]. "<br>";
 			}
 			return $movies;
 		} else {
@@ -192,10 +190,10 @@ function resetDB(){
 
 	// Create table
 	$sql = "CREATE TABLE WatchList (
-		username INT(6) UNSIGNED,
+		username VARCHAR(15),
 		movieid INT(6) UNSIGNED,
 		ordering INT(6) NOT NULL,
-		PRIMARY KEY (username,movieid),
+		CONSTRAINT Pk_Watchlist PRIMARY KEY (username,movieid),
 		FOREIGN KEY (username) REFERENCES Users(username),
 		FOREIGN KEY (movieid) REFERENCES Movies(movieid)
 	)";
