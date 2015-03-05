@@ -96,16 +96,18 @@
 		//SELECT * FROM WatchList where username =  ORDER BY ORDERING
 		$result = $conn->query($sql);
 		
-		$movies = array();; 
+		$movies = array();
 		
 		if ($result->num_rows > 0) {
 			// output data of each row
 			while($row = $result->fetch_assoc()) {
-				$movie['id'] = $row['movieid'];
-				$movie['title'] = $row['title'];
-				$movie['img'] = $row['img'];
+				$movies[] =(int)$row['movieid'];
 				
-				$movies[] = $movie;
+				//$movie['id'] = (int)$row['movieid'];
+				//$movie['title'] = $row['title'];
+				//$movie['img'] = $row['img'];
+				
+				//$movies[] = $movie;
 			}
 			return $movies;
 		} else {
